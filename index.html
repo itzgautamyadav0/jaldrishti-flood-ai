@@ -1,0 +1,1027 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="JalDrishti - Live Flood Intelligence: AI-Based Detection of Flood-Affected Areas in North-East India Using Satellite Images. Real-time SAR and optical deep learning flood mapping across the Brahmaputra and Barak basins.">
+  <meta name="keywords" content="JalDrishti, AI Flood Detection, Satellite Images, North East India, Brahmaputra River, Sentinel-1 SAR, Sentinel-2, NISAR, Assam Flood, Meghalaya, Arunachal Pradesh">
+  <meta name="author" content="JalDrishti Geospatial Intelligence">
+  <title>JalDrishti - Live Flood Intelligence | AI Satellite Flood Detection in North-East India</title>
+
+  <!-- Google Fonts: Plus Jakarta Sans, Outfit, JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Outfit:wght@400;600;700;800;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Leaflet GIS Map Library -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+
+  <!-- Core Stylesheet -->
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- ================= HEADER / NAVIGATION ================= -->
+  <header>
+    <nav class="navbar" id="main-nav">
+      <div class="nav-container">
+        <a href="#hero" class="logo-group">
+          <div class="logo-radar-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"></circle>
+              <path d="M12 2a10 10 0 0 1 10 10"></path>
+              <line x1="12" y1="12" x2="19" y2="5"></line>
+              <circle cx="12" cy="12" r="2"></circle>
+            </svg>
+          </div>
+          <div class="logo-text">
+            <span class="brand-title">🟢 JalDrishti</span>
+            <span class="brand-subtitle">Live Flood Intelligence &bull; North East India</span>
+          </div>
+        </a>
+
+        <ul class="nav-links">
+          <li><a href="#satellite-detection-image">Satellite Studio</a></li>
+          <li><a href="#platform">Platform</a></li>
+          <li><a href="#gis-map">Live GIS Map</a></li>
+          <li><a href="#ai-lab">AI Detection</a></li>
+          <li><a href="#coverage">Coverage</a></li>
+          <li><a href="#impact">Impact</a></li>
+        </ul>
+
+        <div class="nav-actions">
+          <button class="btn-icon" id="sound-toggle-btn" onclick="toggleSound(this)" title="Toggle Audio FX">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+              <path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path>
+            </svg>
+          </button>
+          <button class="btn-primary" onclick="openRequestAccessModal()">
+            Request access ↗️
+          </button>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <!-- ================= HERO SECTION ================= -->
+    <section class="hero-section" id="hero">
+      <div class="hero-grid">
+        <div class="hero-content">
+          <div class="badge badge-alert">
+            <span class="badge-pulse"></span>
+            🔴 LIVE FLOOD INTELLIGENCE &bull; SENTINEL-1 SAR PASS ANALYZED
+          </div>
+
+          <h1 class="hero-title">
+            See the water<br>
+            before it <i class="gradient-text">rises.</i>
+          </h1>
+
+          <p class="hero-description">
+            AI-powered satellite analysis for faster, more confident flood response across North East India. Transforming raw Synthetic Aperture Radar (SAR) and multispectral Earth observation into frontline geospatial intelligence.
+          </p>
+
+          <div class="hero-telemetry-strip">
+            <div class="telemetry-item">
+              <span>PROJECT:</span> <strong>AI Flood Detection in NE India</strong>
+            </div>
+            <div class="telemetry-item">
+              <span>RADAR SENSOR:</span> <strong>Sentinel-1 C-Band / NISAR</strong>
+            </div>
+            <div class="telemetry-item">
+              <span>CLOUD PENETRATION:</span> <strong style="color:#10b981;">100% All-Weather</strong>
+            </div>
+          </div>
+
+          <div class="hero-cta-group">
+            <a href="#platform" class="btn-primary">
+              Explore the platform →
+            </a>
+            <a href="#how" class="btn-outline">
+              How it works ↓
+            </a>
+            <a href="#satellite-detection-image" class="btn-outline">
+              satellite detection image ↓
+            </a>
+          </div>
+
+          <!-- User Statistics: 87%, < 6 hrs, 8 states -->
+          <div class="hero-stats-row">
+            <div class="hero-stat-card emerald">
+              <div class="stat-number">87%</div>
+              <div class="stat-label">Faster damage assessment</div>
+            </div>
+
+            <div class="hero-stat-card">
+              <div class="stat-number">&lt; 6 hrs</div>
+              <div class="stat-label">From satellite pass to insight</div>
+            </div>
+
+            <div class="hero-stat-card deep-teal">
+              <div class="stat-number">8 states</div>
+              <div class="stat-label">Monitored across the North East</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Hero Visual: Real Satellite Radar Flood Image -->
+        <div class="hero-visual-card">
+          <div class="radar-screen">
+            <img src="assets/sar_map.jpg" alt="satellite image of flood detection in north-east state of india" id="hero-radar-img">
+            <div class="radar-reticle"></div>
+            <div class="radar-sweep-overlay"></div>
+          </div>
+          <div class="radar-hud-tag">
+            <div>
+              <span class="mono" style="color:#00f2fe; font-weight:700;">ORBIT SECTOR:</span>
+              <span style="color:#ffffff;"> BRAHMAPUTRA BASIN (ASSAM)</span>
+            </div>
+            <div class="badge badge-alert" style="padding:2px 10px; font-size:0.7rem;">
+              <span class="badge-pulse"></span> INUNDATION CRITICAL
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= MISSION STATUS TICKER (01 - 08) ================= -->
+    <section class="mission-status-strip" aria-label="Mission Telemetry Ticker">
+      <div class="mission-status-inner">
+        <div class="mission-badge-tag">
+          <span class="badge-pulse" style="background:#7fffd4; box-shadow:0 0 8px #7fffd4;"></span>
+          MISSION STATUS
+        </div>
+
+        <div class="mission-ticker-items">
+          <div class="mission-ticker-item">
+            <span>Sentinel-1 pass analysed:</span>
+            <strong>Brahmaputra basin</strong>
+          </div>
+
+          <div class="mission-ticker-item">
+            <span style="color:#ff385c;">⚠️</span>
+            <strong>14 new flood signatures identified</strong>
+          </div>
+
+          <div class="mission-ticker-item">
+            <span style="color:#10b981;">✓</span>
+            <span>Response teams notified (ASDMA &bull; NDRF)</span>
+          </div>
+
+          <div class="mission-ticker-item">
+            <span>Next Radar Revisit:</span>
+            <strong style="color:var(--accent-cyan);">04h 12m</strong>
+          </div>
+        </div>
+
+        <div class="mission-counter">
+          01 - 08
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= BUILT FOR THE FRONTLINE ================= -->
+    <section class="frontline-section" id="frontline">
+      <div class="frontline-box">
+        <div>
+          <div class="badge badge-alert" style="margin-bottom:12px;">
+            🔴 BUILT FOR THE FRONTLINE
+          </div>
+          <h2 style="font-size:2.4rem; line-height:1.2; margin-bottom:14px;">
+            From orbit to<br>
+            <i class="gradient-text">on-the-ground</i> action
+          </h2>
+          <p style="color:var(--text-secondary); font-size:1rem; line-height:1.6;">
+            Bridging space-grade Synthetic Aperture Radar constellations with frontline disaster evacuation teams across Assam, Meghalaya, and the seven sister states.
+          </p>
+        </div>
+
+        <div>
+          <div class="frontline-quote">
+            "JalDrishti turns raw Earth observation data into clear, location-specific flood intelligence—so decision-makers can act while every minute still counts."
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= THE JALDRISHTI PLATFORM ================= -->
+    <section class="section" id="platform">
+      <div class="section-header">
+        <div class="badge">MISSION ARCHITECTURE</div>
+        <h2 class="section-title">The JalDrishti Platform</h2>
+        <p class="section-subtitle">
+          Three deeply synchronized technological pillars engineered to overcome heavy cloud cover and deliver rapid disaster telemetry.
+        </p>
+      </div>
+
+      <div class="platform-cards-grid">
+        <!-- 1. Satellite Analysis -->
+        <div class="platform-card sat" onclick="openPlatformBackendModal('satellite')">
+          <div class="platform-card-icon">🛰</div>
+          <h3>Satellite Analysis</h3>
+          <p>
+            We analyse satellite images to identify flood affected areas. Leveraging C-Band radar (Sentinel-1) and NASA-ISRO NISAR to penetrate 100% of dense monsoon clouds day and night.
+          </p>
+          <div class="platform-card-badge">SENTINEL-1 SAR &bull; SENTINEL-2 OPTICAL</div>
+          <button class="btn-outline platform-cta-btn" onclick="event.stopPropagation(); openPlatformBackendModal('satellite')">
+            Inspect Backend Satellite API ↗
+          </button>
+          <span class="platform-hint-text">⚡ Click to query ESA/ISRO orbit pass</span>
+        </div>
+
+        <!-- 2. AI Detection -->
+        <div class="platform-card ai" onclick="openPlatformBackendModal('ai')">
+          <div class="platform-card-icon">🤖</div>
+          <h3>AI Detection</h3>
+          <p>
+            AI helps detect flood signatures quickly and accurately. Deep learning Attention U-Net++ and SegFormer models segment submerged land, standing floodwaters, and breached dykes with 98.4% IoU.
+          </p>
+          <div class="platform-card-badge">U-NET++ &bull; RESNET-50 &bull; MNDWI</div>
+          <button class="btn-outline platform-cta-btn" onclick="event.stopPropagation(); openPlatformBackendModal('ai')">
+            Run Neural Pipeline Benchmark ↗
+          </button>
+          <span class="platform-hint-text">⚡ Click to execute PyTorch CUDA forward pass</span>
+        </div>
+
+        <!-- 3. Location Intelligence -->
+        <div class="platform-card loc" onclick="openPlatformBackendModal('location')">
+          <div class="platform-card-icon">📍</div>
+          <h3>Location Intelligence</h3>
+          <p>
+            Get clear information about where flooding is happening. High-precision vector GIS polygons overlaying administrative boundaries, submerged highways, and population displacement maps.
+          </p>
+          <div class="platform-card-badge">CWC RIVER GAUGES &bull; VECTOR GEOJSON</div>
+          <button class="btn-outline platform-cta-btn" onclick="event.stopPropagation(); openPlatformBackendModal('location')">
+            Query PostGIS &amp; CWC Sensors ↗
+          </button>
+          <span class="platform-hint-text">⚡ Click to fetch live river gauge vectors</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= SATELLITE DETECTION IMAGE / COMPARISON STUDIO ================= -->
+    <section class="section" id="satellite-detection-image">
+      <div class="section-header">
+        <div class="badge">BITEMPORAL CHANGE DETECTION</div>
+        <h2 class="section-title">Satellite Detection &amp; Inundation Studio</h2>
+        <p class="section-subtitle">
+          Slide the interactive partition to inspect satellite flood detection across North East India. Toggle between raw optical imagery, AI segmentation masks, and radar composites.
+        </p>
+      </div>
+
+      <div class="comparison-container" id="comparison">
+        <div class="comparison-controls-top">
+          <div class="pill-group">
+            <button class="pill-btn active" onclick="setComparisonMode('rgb', this)">
+              Visible RGB (Sentinel-2)
+            </button>
+            <button class="pill-btn" onclick="setComparisonMode('mask', this)">
+              AI Semantic Mask (U-Net++)
+            </button>
+            <button class="pill-btn" onclick="setComparisonMode('sar', this)">
+              NISAR / SAR Radar (Cloud Penetrating)
+            </button>
+          </div>
+
+          <div style="display:flex; align-items:center; gap:12px;">
+            <span class="mono" style="font-size:0.8rem; color:var(--text-secondary);">
+              ACTIVE OVERLAY: <strong style="color:var(--accent-cyan);" id="overlay-mode-tag">Sentinel-2 RGB Flood Inundation</strong>
+            </span>
+          </div>
+        </div>
+
+        <!-- Draggable Viewport -->
+        <div class="comparison-viewport" id="comparison-slider-box">
+          <!-- Background: Pre-Flood Baseline -->
+          <div class="comparison-image pre">
+            <img src="assets/pre_flood.jpg" alt="Baseline Dry Season Satellite Imagery of Brahmaputra River">
+            <div class="img-tag-label right">
+              <span style="color:#10b981;">&#9679;</span> PRE-FLOOD BASELINE (Dry Season)
+            </div>
+          </div>
+
+          <!-- Foreground Clipped: Post-Flood Inundation / AI Mask -->
+          <div class="comparison-image post" id="comparison-post-container">
+            <img src="assets/post_flood.jpg" alt="satellite image of flood detection in north-east state of india" id="post-flood-img">
+            <div class="img-tag-label left">
+              <span style="color:#ff385c;">&#9679;</span> ACTIVE FLOOD SURGE (Sentinel Pass)
+            </div>
+          </div>
+
+          <!-- Divider Handle -->
+          <div class="slider-handle">
+            <div class="handle-knob">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <polyline points="15 18 9 12 15 6"></polyline>
+              </svg>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="margin-left:-10px;">
+                <polyline points="9 18 15 12 9 6"></polyline>
+              </svg>
+            </div>
+          </div>
+        </div>
+
+        <!-- Live Analytics Telemetry Bar -->
+        <div class="comparison-analytics-bar">
+          <div class="analytic-item">
+            <span class="analytic-label">Inundated Fraction Exposed</span>
+            <span class="analytic-val" id="metric-inundated-pct">38.3%</span>
+          </div>
+          <div class="analytic-item">
+            <span class="analytic-label">Waterlogged Area</span>
+            <span class="analytic-val" id="metric-flooded-km2">48,110 ha</span>
+          </div>
+          <div class="analytic-item">
+            <span class="analytic-label">Submerged Paddy &amp; Crops</span>
+            <span class="analytic-val" style="color:#ff9f43;">21,780 ha</span>
+          </div>
+          <div class="analytic-item">
+            <span class="analytic-label">AI Model Confidence</span>
+            <span class="analytic-val" style="color:#10b981;">98.2% IoU</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= LIVE GIS MAP OF NORTH EAST INDIA ================= -->
+    <section class="section" id="gis-map">
+      <div class="section-header">
+        <div class="badge">GEOSPATIAL TELEMETRY</div>
+        <h2 class="section-title">Interactive North East India Flood GIS Map</h2>
+        <p class="section-subtitle">
+          Real-time Central Water Commission (CWC) stage sensors, Brahmaputra channel discharge tracking, and high-risk flood inundation polygons.
+        </p>
+      </div>
+
+      <div class="map-workspace-grid">
+        <div class="map-viewport-wrapper">
+          <div class="map-hud-overlay">
+            <div>COORDINATES: <span style="color:#00f2fe;">26.2006° N, 92.9376° E</span></div>
+            <div>SATELLITE PASS: <span style="color:#10b981;">SENTINEL-1A SAR (DESCENDING)</span></div>
+          </div>
+          <div id="leaflet-map"></div>
+        </div>
+
+        <!-- Sidebar -->
+        <div class="map-sidebar">
+          <div class="sidebar-card">
+            <div class="sidebar-title">
+              <span>Active Flood Hotspots</span>
+              <span class="badge" style="font-size:0.65rem; padding:2px 8px;">9 STATIONS</span>
+            </div>
+            <div class="hotspot-list" id="hotspots-list-container">
+              <!-- Rendered via JavaScript -->
+            </div>
+          </div>
+
+          <!-- Station Telemetry Detail Card -->
+          <div class="sidebar-card" id="station-detail-container">
+            <!-- Rendered via JavaScript -->
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= AI NEURAL INFERENCE LAB ================= -->
+    <section class="section" id="ai-lab">
+      <div class="section-header">
+        <div class="badge">DEEP LEARNING PIPELINE</div>
+        <h2 class="section-title">AI Neural Inference Simulator</h2>
+        <p class="section-subtitle">
+          Test real-time deep learning segmentation on satellite scenes. Evaluate water index thresholds, tweak neural confidence, or upload your own satellite GeoTIFF/JPG tile.
+        </p>
+      </div>
+
+      <div class="inference-studio-card">
+        <div class="studio-grid">
+          <!-- Config Panel -->
+          <div class="studio-config-panel">
+            <div class="form-group">
+              <label class="form-label" for="scene-select">Select Satellite Scene</label>
+              <select id="scene-select" class="custom-select" onchange="handleSceneSelect(this.value)">
+                <option value="kaziranga">Kaziranga National Park (Brahmaputra Flood)</option>
+                <option value="majuli">Majuli River Island (SAR NISAR Backscatter)</option>
+                <option value="silchar">Silchar Urban (Barak Basin Overflow)</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="model-select">Neural Network Architecture</label>
+              <select id="model-select" class="custom-select">
+                <option value="unet">Attention U-Net++ (ResNet-50 Backbone)</option>
+                <option value="segformer">SegFormer-B2 (Hierarchical Transformer)</option>
+                <option value="changenet">Bitemporal ChangeNet (Siamese SAR)</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="index-select">Spectral Water Index / SAR Mode</label>
+              <select id="index-select" class="custom-select">
+                <option value="sar">SAR VV/VH Dual-Pol Backscatter (dB)</option>
+                <option value="mndwi">MNDWI (Green - SWIR) / (Green + SWIR)</option>
+                <option value="ndwi">McFeeters NDWI (NIR - Green)</option>
+                <option value="awei">AWEInsh (Automated Water Extraction)</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <div style="display:flex; justify-content:space-between; align-items:center;">
+                <label class="form-label" for="confidence-slider">Confidence Threshold</label>
+                <span class="mono" id="confidence-display" style="color:#00f2fe; font-size:0.85rem;">85%</span>
+              </div>
+              <input type="range" id="confidence-slider" min="50" max="99" value="85" class="range-slider">
+              <div class="slider-labels">
+                <span>50% (High Recall)</span>
+                <span>99% (High Precision)</span>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Or Upload Satellite Tile</label>
+              <label class="upload-dropzone">
+                <input type="file" id="custom-file-input" accept="image/*" style="display:none;" onchange="handleCustomUpload(event)">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color:var(--accent-cyan); margin-bottom:6px;">
+                  <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                  <polyline points="17 8 12 3 7 8"></polyline>
+                  <line x1="12" y1="3" x2="12" y2="15"></line>
+                </svg>
+                <div id="dropzone-text" style="font-size:0.8rem; color:var(--text-secondary);">
+                  Drop Sentinel GeoTIFF / JPG or click to upload
+                </div>
+              </label>
+            </div>
+
+            <button class="btn-primary" id="run-inference-btn" onclick="runAiInference()" style="justify-content:center; padding:14px;">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polygon points="5 3 19 12 5 21 5 3"></polygon>
+              </svg>
+              Execute AI Inference
+            </button>
+          </div>
+
+          <!-- Stage / Viewport -->
+          <div class="inference-display-panel">
+            <div class="inference-canvas-stage">
+              <img src="assets/post_flood.jpg" id="inference-preview-img" alt="AI Neural Model Satellite Test Canvas">
+              <div class="neural-scan-line"></div>
+
+              <!-- Interactive Simulated Bounding Box -->
+              <div class="bounding-box-demo">
+                <span class="bbox-label">INUNDATED ZONE: 98.2% CONF</span>
+                <span class="bbox-label" style="background:#ff385c; color:#fff;">CRITICAL SUBMERSION</span>
+              </div>
+            </div>
+
+            <!-- Progress Bar -->
+            <div class="inference-progress-container" id="inference-progress-container">
+              <div class="progress-header">
+                <span id="inference-status-text">Processing Sentinel-1 SAR GRD scene...</span>
+                <span class="mono" style="color:#00f2fe;">CUDA ACCELERATED</span>
+              </div>
+              <div class="progress-bar-bg">
+                <div class="progress-bar-fill" id="inference-progress-bar"></div>
+              </div>
+            </div>
+
+            <!-- Output Analytics -->
+            <div class="inference-results-grid">
+              <div class="result-card">
+                <h5>Extracted Water Extent</h5>
+                <p id="res-area" style="color:#00f2fe;">48,110 ha</p>
+              </div>
+              <div class="result-card">
+                <h5>Pixel Accuracy</h5>
+                <p id="res-acc" style="color:#10b981;">98.2%</p>
+              </div>
+              <div class="result-card">
+                <h5>Mean IoU Score</h5>
+                <p id="res-iou" style="color:#a855f7;">96.4%</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= COVERAGE: 8 STATES OF NORTH EAST INDIA ================= -->
+    <section class="section" id="coverage">
+      <div class="section-header">
+        <div class="badge" style="border-color:rgba(127, 175, 67, 0.4); background:rgba(127, 175, 67, 0.1); color:#a3e635;">
+          COVERAGE &bull; NORTH EAST INDIA
+        </div>
+        <h2 class="section-title">Monitoring Flood Conditions Across North East India</h2>
+        <p class="section-subtitle">
+          Comprehensive 24/7 radar surveillance across all 8 North Eastern states: Assam, Arunachal Pradesh, Meghalaya, Nagaland, Manipur, Mizoram, Tripura, and Sikkim.
+        </p>
+      </div>
+
+      <!-- State Filter Tabs (User's 8 states) -->
+      <div class="state-selector-tabs">
+        <button class="state-tab active" onclick="switchStateTab('assam', this)">1. Assam</button>
+        <button class="state-tab" onclick="switchStateTab('arunachal', this)">2. Arunachal Pradesh</button>
+        <button class="state-tab" onclick="switchStateTab('meghalaya', this)">3. Meghalaya</button>
+        <button class="state-tab" onclick="switchStateTab('nagaland', this)">4. Nagaland</button>
+        <button class="state-tab" onclick="switchStateTab('manipur', this)">5. Manipur</button>
+        <button class="state-tab" onclick="switchStateTab('mizoram', this)">6. Mizoram</button>
+        <button class="state-tab" onclick="switchStateTab('tripura', this)">7. Tripura</button>
+        <button class="state-tab" onclick="switchStateTab('sikkim', this)">8. Sikkim</button>
+      </div>
+
+      <div class="state-telemetry-container">
+        <!-- Overview & District Table -->
+        <div class="state-overview-card">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:16px;">
+            <h3 style="font-size:1.6rem;" id="state-name-display">Assam</h3>
+            <span class="badge badge-alert">STATE DISASTER RED ALERT</span>
+          </div>
+
+          <table class="district-risk-table">
+            <thead>
+              <tr>
+                <th>District</th>
+                <th>Submerged %</th>
+                <th>Risk Classification</th>
+                <th>Affected Citizens</th>
+              </tr>
+            </thead>
+            <tbody id="district-table-body">
+              <!-- Rendered via JavaScript -->
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Macro Stats Column -->
+        <div style="display:flex; flex-direction:column; gap:16px;">
+          <div class="metric-card critical">
+            <div class="metric-header">Displaced Population</div>
+            <div class="metric-value" id="state-displaced">1,842,500</div>
+            <div class="metric-desc">In temporary relief camps &amp; elevated bunds</div>
+          </div>
+
+          <div class="metric-card">
+            <div class="metric-header">Districts Inundated</div>
+            <div class="metric-value" id="state-districts">27 of 35</div>
+            <div class="metric-desc">High risk of embankment failure</div>
+          </div>
+
+          <div class="metric-card purple">
+            <div class="metric-header">Cumulative 24h Rainfall</div>
+            <div class="metric-value" id="state-rainfall">142.5 mm</div>
+            <div class="metric-desc">IMD Doppler radar gauge composite</div>
+          </div>
+
+          <div class="metric-card green">
+            <div class="metric-header">Brahmaputra / Basin Flow</div>
+            <div class="metric-value" style="font-size:1.6rem;" id="state-discharge">48,500 m³/s</div>
+            <div class="metric-desc">Surpassing extreme danger gauge</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= HOW IT WORKS / METHODOLOGY ================= -->
+    <section class="section" id="how">
+      <div class="section-header">
+        <div class="badge">SCIENTIFIC METHODOLOGY</div>
+        <h2 class="section-title">How JalDrishti Works</h2>
+        <p class="section-subtitle">
+          How synthetic aperture radar (SAR) combined with deep convolutional and attention neural networks breaks through monsoonal cloud barriers.
+        </p>
+      </div>
+
+      <div class="architecture-grid">
+        <div class="arch-card">
+          <span class="arch-step-num">STAGE 01</span>
+          <div class="arch-icon">🛰</div>
+          <h4>Dual-SAR Constellation</h4>
+          <p>
+            Sentinel-1 C-Band (5.405 GHz) and NISAR S-band microwave radars penetrate 100% of monsoon cloudbursts, night and day, acquiring specular surface backscatter reflection values.
+          </p>
+        </div>
+
+        <div class="arch-card">
+          <span class="arch-step-num">STAGE 02</span>
+          <div class="arch-icon">⚡</div>
+          <h4>Speckle &amp; Terrain Correction</h4>
+          <p>
+            Radiometric calibration calculates $\sigma^0$ (dB). A 7x7 Refined Lee filter eliminates radar speckle noise, followed by SRTM 30m Digital Elevation Model (DEM) range-Doppler terrain flattening.
+          </p>
+        </div>
+
+        <div class="arch-card">
+          <span class="arch-step-num">STAGE 03</span>
+          <div class="arch-icon">🧠</div>
+          <h4>Attention U-Net++ Neural Net</h4>
+          <p>
+            Multi-scale nested skip pathways with additive attention gates segment deep floodwaters vs. semi-submerged paddy vegetation with Dice + Focal composite loss, delivering 98.4% IoU.
+          </p>
+        </div>
+
+        <div class="arch-card">
+          <span class="arch-step-num">STAGE 04</span>
+          <div class="arch-icon">📍</div>
+          <h4>Vector GIS &amp; Early Warning</h4>
+          <p>
+            Binary raster masks are vectorized into GeoJSON polygons, intersected with OpenStreetMap transport grids and census maps to dispatch pinpoint rescue alerts to SDRF and ASDMA.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= IMPACT & RESCUE COORDINATION ================= -->
+    <section class="section" id="impact">
+      <div class="emergency-hub">
+        <div class="emergency-grid">
+          <div>
+            <div class="badge badge-alert" style="margin-bottom:12px;">IMPACT &amp; RAPID RESPONSE</div>
+            <h2 style="font-size:2.5rem; margin-bottom:14px; line-height:1.2;">
+              Faster information.<br>
+              <i class="gradient-text">Better decisions.</i>
+            </h2>
+            <p style="color:var(--text-secondary); margin-bottom:20px; font-size:1rem; line-height:1.65;">
+              Flood intelligence helps response teams understand changing conditions and respond faster. Direct satellite feeds are routed to National Disaster Response Force (NDRF 1st &amp; 12th Battalions) and State Disaster Management Authorities.
+            </p>
+            <div style="display:flex; gap:12px; flex-wrap:wrap;">
+              <button class="btn-primary" onclick="openRequestAccessModal()">
+                Request access →
+              </button>
+              <button class="btn-primary btn-danger" onclick="triggerEmergencySOS('Regional Command')">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path>
+                  <line x1="12" y1="9" x2="12" y2="13"></line>
+                  <line x1="12" y1="17" x2="12.01" y2="17"></line>
+                </svg>
+                Broadcast Emergency SOS
+              </button>
+              <button class="btn-outline" onclick="openSitrepModal('kaziranga')">
+                Download Official SITREP
+              </button>
+            </div>
+          </div>
+
+          <div class="helpline-box-grid">
+            <div class="helpline-item">
+              <div class="helpline-title">Assam ASDMA Control Room</div>
+              <div class="helpline-num">1070 / 1079</div>
+              <div style="font-size:0.75rem; color:#94a3b8;">Toll Free 24x7 Hotline</div>
+            </div>
+
+            <div class="helpline-item">
+              <div class="helpline-title">NDRF Battalion Guwahati</div>
+              <div class="helpline-num">0361-2840284</div>
+              <div style="font-size:0.75rem; color:#94a3b8;">Patgaon Hub Direct Line</div>
+            </div>
+
+            <div class="helpline-item">
+              <div class="helpline-title">Meghalaya SDMA Emergency</div>
+              <div class="helpline-num">1077</div>
+              <div style="font-size:0.75rem; color:#94a3b8;">State Emergency Op Centre</div>
+            </div>
+
+            <div class="helpline-item">
+              <div class="helpline-title">Central Water Commission (NE)</div>
+              <div class="helpline-num">1800-180-1551</div>
+              <div style="font-size:0.75rem; color:#94a3b8;">Hydrological Flood Forecast</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ================= REQUEST ACCESS MODAL DIALOG ================= -->
+  <div class="modal-overlay" id="request-access-modal" onclick="if(event.target === this) closeRequestAccessModal()">
+    <div class="modal-box">
+      <div class="modal-header">
+        <div style="display:flex; align-items:center; gap:10px;">
+          <span style="font-size:1.4rem;">🟢</span>
+          <div>
+            <h3 style="font-size:1.25rem; color:#ffffff; margin:0;">Request Access to JalDrishti Platform</h3>
+            <span style="font-size:0.78rem; color:var(--text-secondary);">Direct API &amp; GIS Intelligence Portal for Government, SDRF &amp; Researchers</span>
+          </div>
+        </div>
+        <button class="modal-close-btn" onclick="closeRequestAccessModal()">&times;</button>
+      </div>
+
+      <form class="request-form" id="request-access-form" onsubmit="handleRequestAccessSubmit(event)">
+        <div class="form-row-2">
+          <div class="form-group">
+            <label class="form-label" for="req-name">Full Name</label>
+            <input type="text" id="req-name" class="custom-input" placeholder="e.g. Dr. Rajesh Sharma" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="req-org">Organization / Department</label>
+            <input type="text" id="req-org" class="custom-input" placeholder="e.g. ASDMA / NDRF / ISRO / University" required>
+          </div>
+        </div>
+
+        <div class="form-row-2">
+          <div class="form-group">
+            <label class="form-label" for="req-role">Operational Role</label>
+            <select id="req-role" class="custom-select" required>
+              <option value="disaster">State Disaster Response (SDRF / ASDMA)</option>
+              <option value="ndrf">National Disaster Response Force (NDRF)</option>
+              <option value="magistrate">District Administration / Magistrate</option>
+              <option value="research">Remote Sensing Scientist / Hydrologist</option>
+              <option value="ngo">Humanitarian Relief Agency / Volunteer</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="req-email">Official / Work Email</label>
+            <input type="email" id="req-email" class="custom-input" placeholder="name@organization.gov.in" required>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="req-use">Intended Theater of Operation</label>
+          <select id="req-use" class="custom-select">
+            <option value="assam">Brahmaputra Valley (Assam 27 Districts)</option>
+            <option value="barak">Barak Basin &amp; Cachar Valley</option>
+            <option value="meghalaya">Garo Hills &amp; Meghalaya Catchment</option>
+            <option value="all-ne">All 8 North-Eastern States Regional Corridor</option>
+          </select>
+        </div>
+
+        <button type="submit" class="btn-primary" style="justify-content:center; padding:14px; font-size:1rem; margin-top:8px;">
+          Submit Application &amp; Generate Access Token ↗️
+        </button>
+      </form>
+
+      <!-- Instant Token Confirmation -->
+      <div class="access-success-box" id="access-success-box">
+        <div style="font-size:2rem; margin-bottom:8px;">✅</div>
+        <h3 style="color:#ffffff; margin-bottom:6px;">Access Approved (Priority Theater Pass)</h3>
+        <p style="color:var(--text-secondary); font-size:0.9rem; margin-bottom:12px;">
+          Your credentials have been provisioned for the JalDrishti North-East Flood Intelligence Stream.
+        </p>
+        <div>
+          <span style="font-size:0.75rem; color:#94a3b8; text-transform:uppercase;">Authentication Key</span><br>
+          <span class="access-token-badge" id="generated-token">JD-NE-8X9K2L-SAR</span>
+        </div>
+        <div style="margin-top:20px;">
+          <button class="btn-primary" onclick="closeRequestAccessModal()" style="padding:8px 24px;">
+            Done &bull; Return to Dashboard
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= PLATFORM BACKEND DIAGNOSTICS & TELEMETRY MODAL ================= -->
+  <div class="modal-overlay" id="platform-backend-modal" onclick="if(event.target === this) closePlatformBackendModal()">
+    <div class="modal-box" style="max-width: 900px;">
+      <div class="modal-header">
+        <div style="display:flex; align-items:center; gap:12px;">
+          <div class="logo-radar-icon" style="width:34px; height:34px;">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="2" y="2" width="20" height="8" rx="2" ry="2"></rect>
+              <rect x="2" y="14" width="20" height="8" rx="2" ry="2"></rect>
+              <line x1="6" y1="6" x2="6.01" y2="6"></line>
+              <line x1="6" y1="18" x2="6.01" y2="18"></line>
+            </svg>
+          </div>
+          <div>
+            <h3 style="font-size:1.3rem; color:#ffffff; margin:0;">JalDrishti Platform Backend Diagnostic Engine</h3>
+            <span style="font-size:0.78rem; color:var(--text-secondary); font-family:var(--font-mono);">
+              LIVE SERVER TELEMETRY &bull; NODE: guwahati-edge-01 &bull; STATUS: CONNECTED
+            </span>
+          </div>
+        </div>
+        <button class="modal-close-btn" onclick="closePlatformBackendModal()">&times;</button>
+      </div>
+
+      <!-- Navigation Tabs -->
+      <div class="backend-tab-nav">
+        <button class="backend-tab-btn active" data-tab="satellite" onclick="switchPlatformBackendTab('satellite')">
+          🛰 Satellite Analysis Backend
+        </button>
+        <button class="backend-tab-btn" data-tab="ai" onclick="switchPlatformBackendTab('ai')">
+          🤖 AI Neural Inference Backend
+        </button>
+        <button class="backend-tab-btn" data-tab="location" onclick="switchPlatformBackendTab('location')">
+          📍 Location Intelligence Backend
+        </button>
+      </div>
+
+      <!-- Tab 1: Satellite Analysis Backend -->
+      <div class="backend-panel active" id="backend-panel-satellite">
+        <div class="backend-grid-2">
+          <div class="backend-param-card">
+            <span>Satellite Constellation</span>
+            <strong>Sentinel-1A SAR / NISAR Dual-Band</strong>
+          </div>
+          <div class="backend-param-card">
+            <span>Orbit &amp; Pass Mode</span>
+            <strong>Descending Pass #142 (Brahmaputra Valley)</strong>
+          </div>
+          <div class="backend-param-card">
+            <span>Radar Cloud Penetrability</span>
+            <strong style="color:#10b981;">100% (Zero Cloud Attenuation)</strong>
+          </div>
+          <div class="backend-param-card">
+            <span>Ground Resolution</span>
+            <strong>10m Multi-Look Sigma-0 Backscatter</strong>
+          </div>
+        </div>
+
+        <div class="backend-terminal">
+          <div class="terminal-header">
+            <span>COPERNICUS SCI-HUB &amp; ISRO INGESTION DAEMON</span>
+            <span class="mono" style="color:#10b981;">● FEED STREAMING</span>
+          </div>
+          <div id="sat-terminal-body">
+            <div class="terminal-line cmd">$ curl -X GET "https://api.copernicus.eu/v1/sentinel-1/ne-india-latest"</div>
+            <div class="terminal-line">[18:58:12] Establishing SSL handshake with Sentinel-1 Ground Segment (ESRIN Frascati)...</div>
+            <div class="terminal-line success">[18:58:13] 200 OK &bull; Response Payload Received (4.2 MB GeoTIFF Header)</div>
+            <div class="terminal-line">{</div>
+            <div class="terminal-line">&nbsp;&nbsp;"granuleId": "S1A_IW_GRDH_1SDV_20261006T120531_050412_0607AA",</div>
+            <div class="terminal-line">&nbsp;&nbsp;"platform": "Sentinel-1A C-Band SAR (5.405 GHz)",</div>
+            <div class="terminal-line">&nbsp;&nbsp;"polarization": ["VV", "VH Dual-Polarized"],</div>
+            <div class="terminal-line">&nbsp;&nbsp;"swathWidthKm": 250,</div>
+            <div class="terminal-line">&nbsp;&nbsp;"cloudPenetration": "100% (Zero Cloud Attenuation)"</div>
+            <div class="terminal-line">}</div>
+          </div>
+        </div>
+
+        <div style="display:flex; gap:12px; flex-wrap:wrap; margin-top:6px;">
+          <button class="btn-primary" onclick="simulateSatellitePassQuery()">
+            🛰 Query Live ESA/ISRO Satellite Pass API
+          </button>
+          <a href="#satellite-detection-image" class="btn-outline" onclick="closePlatformBackendModal(); setComparisonMode('sar', document.querySelectorAll('.pill-btn')[2]);">
+            Open in Satellite Comparison Studio →
+          </a>
+        </div>
+      </div>
+
+      <!-- Tab 2: AI Detection Backend -->
+      <div class="backend-panel" id="backend-panel-ai">
+        <div class="backend-grid-2">
+          <div class="backend-param-card">
+            <span>Deep Learning Architecture</span>
+            <strong>Attention U-Net++ (ResNet-50)</strong>
+          </div>
+          <div class="backend-param-card">
+            <span>Hardware Acceleration</span>
+            <strong style="color:#38e1ff;">NVIDIA A100 TensorRT (CUDA 12.4)</strong>
+          </div>
+          <div class="backend-param-card">
+            <span>Segmentation Mean IoU</span>
+            <strong style="color:#10b981;">98.42% (Dice: 0.9881)</strong>
+          </div>
+          <div class="backend-param-card">
+            <span>Forward Pass Inference Latency</span>
+            <strong style="color:#facc15;">114.8 ms / 1024x1024 Tile</strong>
+          </div>
+        </div>
+
+        <div class="backend-terminal">
+          <div class="terminal-header">
+            <span>PYTORCH INFERENCE RUNNER ENGINE</span>
+            <span class="mono" style="color:#38e1ff;">● CUDA:0 READY</span>
+          </div>
+          <div id="ai-terminal-body">
+            <div class="terminal-line cmd">$ python3 -m jaldrishti.engine.inference --model attention_unet_plus --tensor [1,4,1024,1024]</div>
+            <div class="terminal-line">[18:58:20] Loading PyTorch TensorRT Engine: jal_drishti_brahmaputra_v3.4.pt...</div>
+            <div class="terminal-line">[18:58:21] Running 7x7 Refined Lee Speckle Filter &amp; MNDWI Normalization...</div>
+            <div class="terminal-line success">[18:58:22] Inference Succeeded! Forward Pass Latency: 114.8 ms</div>
+            <div class="terminal-line success">&bull; Mean IoU Score: 98.42% &bull; Extracted Inundated Surface: 48,110 ha</div>
+          </div>
+        </div>
+
+        <div style="display:flex; gap:12px; flex-wrap:wrap; margin-top:6px;">
+          <button class="btn-primary" id="btn-run-benchmark" onclick="simulateModelBenchmark()">
+            ⚡ Run PyTorch Forward Pass Benchmark
+          </button>
+          <a href="#ai-lab" class="btn-outline" onclick="closePlatformBackendModal(); runAiInference();">
+            Launch AI Neural Inference Studio →
+          </a>
+        </div>
+      </div>
+
+      <!-- Tab 3: Location Intelligence Backend -->
+      <div class="backend-panel" id="backend-panel-location">
+        <div class="backend-grid-2">
+          <div class="backend-param-card">
+            <span>Geospatial Database</span>
+            <strong>PostGIS 3.4 on PostgreSQL 16 (EPSG:4326)</strong>
+          </div>
+          <div class="backend-param-card">
+            <span>CWC Gauge Stage (Pandu Guwahati)</span>
+            <strong style="color:#ff385c;">49.85m (0.17m Above Danger Level)</strong>
+          </div>
+          <div class="backend-param-card">
+            <span>Inundated Village Polygons</span>
+            <strong>42 Surveyed Mouzas / Revenue Villages</strong>
+          </div>
+          <div class="backend-param-card">
+            <span>Submerged Transport Lifelines</span>
+            <strong style="color:#ff7e36;">NH-715 (Kaziranga) &amp; Kamalabari Ferry Cut-off</strong>
+          </div>
+        </div>
+
+        <div class="backend-terminal">
+          <div class="terminal-header">
+            <span>POSTGIS SPATIAL TELEMETRY FEED</span>
+            <span class="mono" style="color:#10b981;">● SYNCED WITH CWC</span>
+          </div>
+          <div id="loc-terminal-body">
+            <div class="terminal-line cmd">$ psql -d jaldrishti_spatial -c "SELECT ST_AsGeoJSON(flood_polygons) FROM cwc_inundation;"</div>
+            <div class="terminal-line success">[18:58:30] Query Executed on PostGIS Spatial Engine &bull; Return Code 0 (24ms)</div>
+            <div class="terminal-line">{</div>
+            <div class="terminal-line">&nbsp;&nbsp;"type": "FeatureCollection",</div>
+            <div class="terminal-line">&nbsp;&nbsp;"features": [</div>
+            <div class="terminal-line">&nbsp;&nbsp;&nbsp;&nbsp;{ "type": "Feature", "properties": { "district": "Barpeta", "risk": "CRITICAL", "submerged": "71.2%" } },</div>
+            <div class="terminal-line">&nbsp;&nbsp;&nbsp;&nbsp;{ "type": "Feature", "properties": { "hotspot": "Kaziranga", "nh715": "SUBMERGED_KM_142_TO_148" } }</div>
+            <div class="terminal-line">&nbsp;&nbsp;]</div>
+            <div class="terminal-line">}</div>
+          </div>
+        </div>
+
+        <div style="display:flex; gap:12px; flex-wrap:wrap; margin-top:6px;">
+          <button class="btn-primary" onclick="simulateGeoJsonFetch()">
+            📍 Query Real-Time PostGIS GeoJSON Data
+          </button>
+          <a href="#gis-map" class="btn-outline" onclick="closePlatformBackendModal(); selectHotspot('barpeta');">
+            Inspect on Live Leaflet GIS Map →
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= SITREP MODAL DIALOG ================= -->
+  <div class="modal-overlay" id="sitrep-modal" onclick="if(event.target === this) closeModal()">
+    <div class="modal-box">
+      <div class="modal-header">
+        <h3 style="font-size:1.2rem; color:#ffffff;">JalDrishti Geospatial Intelligence Bulletin</h3>
+        <button class="modal-close-btn" onclick="closeModal()">&times;</button>
+      </div>
+      <div id="sitrep-content">
+        <!-- Rendered dynamically via JavaScript -->
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= FOOTER ================= -->
+  <footer class="footer">
+    <div class="footer-content">
+      <div class="footer-brand">
+        <div class="logo-group">
+          <div class="logo-radar-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="10"></circle>
+              <line x1="12" y1="12" x2="19" y2="5"></line>
+              <circle cx="12" cy="12" r="2"></circle>
+            </svg>
+          </div>
+          <span class="brand-title" style="font-size:1.15rem;">🟢 JalDrishti</span>
+        </div>
+        <p>
+          AI-Based Detection of Flood-Affected Areas in North-East India Using Satellite Images. Bridging Earth observation constellations with frontline humanitarian response across the 8 sister states.
+        </p>
+      </div>
+
+      <div class="footer-col">
+        <h4>The Platform</h4>
+        <ul>
+          <li><a href="#satellite-detection-image">Satellite Detection Image</a></li>
+          <li><a href="#platform">The Platform Pillars</a></li>
+          <li><a href="#gis-map">Live GIS Flood Map</a></li>
+          <li><a href="#ai-lab">AI Neural Lab</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Coverage (8 States)</h4>
+        <ul>
+          <li><a href="#coverage">Assam &bull; Brahmaputra &amp; Barak</a></li>
+          <li><a href="#coverage">Meghalaya &bull; Garo &amp; Khasi</a></li>
+          <li><a href="#coverage">Arunachal &bull; Siang Basin</a></li>
+          <li><a href="#coverage">Manipur, Tripura, Nagaland, Mizoram, Sikkim</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Impact &amp; Emergency</h4>
+        <ul>
+          <li><a href="#impact">Impact Telemetry</a></li>
+          <li><a href="javascript:void(0)" onclick="openRequestAccessModal()">Request Access ↗️</a></li>
+          <li><a href="javascript:void(0)" onclick="openSitrepModal('kaziranga')">Download SITREP</a></li>
+          <li><a href="#impact">24x7 Emergency Hotlines</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <div>&copy; 2026 JalDrishti. AI-Based Detection of Flood-Affected Areas in North-East India Using Satellite Images.</div>
+      <div class="mono" style="color:var(--accent-cyan);">SYSTEM HEALTH: 100% OPERATIONAL &bull; LATENCY: 38ms</div>
+    </div>
+  </footer>
+
+  <!-- Main Logic Engine -->
+  <script src="app.js"></script>
+</body>
+</html>
