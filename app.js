@@ -1023,6 +1023,22 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+  // Automatic asset path resolver (works whether files are in root or assets/)
+  document.querySelectorAll('img').forEach(img => {
+    img.addEventListener('error', function() {
+      if (!this.dataset.fallbackTried) {
+        this.dataset.fallbackTried = 'true';
+        if (this.src.includes('assets/')) {
+          this.src = this.src.replace('assets/', '');
+        } else {
+          const parts = this.src.split('/');
+          const filename = parts.pop();
+          this.src = parts.join('/') + '/assets/' + filename;
+        }
+      }
+    });
+  });
+
   // Smooth click sound on any primary button
   document.querySelectorAll('.btn-primary, .btn-outline, .btn-danger').forEach(b => {
     b.addEventListener('click', () => playSound('click'));
